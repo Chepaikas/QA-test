@@ -13,12 +13,10 @@ public class FirstTest {
     public void start() {
         driver = new ChromeDriver();
     }
-
     @Test
     public void myFirstTest() {
         driver.navigate().to("http://google.com");
     }
-
     @After
     public void stop() {
         driver.quit();
