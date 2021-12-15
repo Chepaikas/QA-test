@@ -50,6 +50,7 @@ public class Test12 {
     }
     @Test
     public void test12() throws IOException {
+        String name = "Blue Duck" + String.valueOf( System.currentTimeMillis());
         driver.get("http://localhost/litecart/admin");
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).sendKeys("admin");
@@ -62,7 +63,7 @@ public class Test12 {
         assertTrue(element(By.cssSelector("#tab-general")));
         WebElement generalSet = driver.findElement(By.cssSelector("#tab-general"));
         generalSet.findElement(By.cssSelector("[name=status][value='1']")).click();
-        generalSet.findElement(By.cssSelector("[name='name[en]']")).sendKeys("Blue Duck");
+        generalSet.findElement(By.cssSelector("[name='name[en]']")).sendKeys(name);
         generalSet.findElement(By.cssSelector("[name=code]")).sendKeys("rdxxx");
 
         if(Checked(By.cssSelector("[data-name='Root']"))==false){
@@ -153,12 +154,12 @@ public class Test12 {
         }
         List<WebElement> products = driver.findElements(By.cssSelector("a[href*='&product']"));
         for(int x = 0; x < products.size(); x++){
-            if(products.get(x).getAttribute("textContent")!=null && products.get(x).getAttribute("textContent").contains("Blue Duck")){
+            if(products.get(x).getAttribute("textContent")!=null && products.get(x).getAttribute("textContent").contains(name)){
                 products.get(x).click();
                 break;
             }
         }
-        wait.until(titleIs("Edit Product: Blue Duck | My Store"));
+        wait.until(titleIs("Edit Product: "+ name +" | My Store"));
     }
     @After
     public void stop(){
