@@ -52,10 +52,10 @@ public class Test9_1 {
             if(countries.get(y).getAttribute("textContent").contains("0") == false){
                 countries.get(y).findElement(By.cssSelector("a:not([title])")).click();
                 assertTrue(isElementPresent(By.cssSelector("#table-zones")));
-                List <WebElement> zone = driver.findElements(By.cssSelector("td [name*=name][name*=zones]"));
+                List <WebElement> zone = driver.findElements(By.cssSelector("input [name*=name][name*=zones]"));
                 ArrayList <String> zoneString = new ArrayList<>();
                 for(int z = 0; z < zone.size(); z++){
-                    zoneString.add(z, zone.get(z).getText());
+                    zoneString.add(z, zone.get(z).getAttribute("value"));
                 }
                 ArrayList <String> zonesorted = new ArrayList<>();
                 zonesorted = (ArrayList<String>) zoneString.clone();
