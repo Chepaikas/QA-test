@@ -56,22 +56,16 @@ public class Test13 {
             }
         }
         wait.until(titleIs("Checkout | My Store"));
-        WebElement sum = driver.findElement(By.cssSelector("#box-checkout-summary"));
-        List <WebElement> Checkout = sum.findElements(By.cssSelector("td.item"));
+        List <WebElement> Checkout = driver.findElement(By.cssSelector("#box-checkout-summary")).findElements(By.cssSelector("td.item"));
         int types = Checkout.size();
-        while (true){
-            if(element(By.cssSelector("button[value=Remove]"))){
-                WebElement remove = driver.findElement(By.cssSelector("button[value=Remove]"));
-                wait.until(visibilityOf(remove));
-                remove.click();
-                wait.until(numberOfElementsToBe(By.cssSelector("td.item"), types-1));
-                types--;
-                continue;
-            }
-            else{
-                wait.until(ExpectedConditions.stalenessOf(sum));
-                break;
-            }
+        while (types > 0) {
+            WebElement remove = driver.findElement(By.cssSelector("button[value=Remove]"));
+            wait.until(visibilityOf(remove));
+            WebElement sum = driver.findElement(By.cssSelector("#box-checkout-summary"));
+            remove.click();
+            wait.until(ExpectedConditions.stalenessOf(sum));
+            wait.until(numberOfElementsToBe(By.cssSelector("td.item"), types-1));
+            types--;
         }
     }
     @After
