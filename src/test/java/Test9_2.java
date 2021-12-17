@@ -42,12 +42,11 @@ public class Test9_2 {
         for(int x = 0; x < country.size(); x++){
             driver.findElements(By.cssSelector("[name=geo_zones_form] td a:not([title])")).get(x).click();
             assertTrue(isElementPresent(By.cssSelector("#table-zones")));
-            Select zones = new Select(driver.findElement(By.cssSelector("select[name*=zone_code]")));
+
+           List <WebElement> zones = driver.findElements(By.cssSelector("select[name*=zone_code]"));
             ArrayList<String> zonesString = new ArrayList<>();
-            for (WebElement zone : zones.getOptions()) {
-                if (zone.getText() != "-- All Zones --") {
-                    zonesString.add(zone.getText());
-                }
+            for (WebElement zone : zones) {
+                zonesString.add((new Select (zone)).getFirstSelectedOption().getText());
             }
             ArrayList<String> zonesSorted = new ArrayList<>();
             zonesSorted = (ArrayList<String>) zonesString.clone();
